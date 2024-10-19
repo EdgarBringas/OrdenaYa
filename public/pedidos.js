@@ -1,6 +1,6 @@
-// Importar los módulos de Firebase
+// pedidos.js
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-app.js";
-import { getFirestore, collection, addDoc, getDocs, updateDoc, deleteDoc, doc, query, where } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-firestore.js";
+import { getFirestore, collection, addDoc, getDocs, updateDoc, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-firestore.js";
 
 // Configuración de Firebase
 const firebaseConfig = {
@@ -122,55 +122,8 @@ async function obtenerPedidos() {
     }));
 }
 
-// Funciones para registro
-async function verificarUsuario(username) {
-    console.log("Verificando usuario:", username);
-    const usersRef = collection(db, "usuarios");
-    const q = query(usersRef, where("username", "==", username));
-    const querySnapshot = await getDocs(q);
-    return querySnapshot.empty; // Si está vacío, el usuario no existe
-   
-
-}
-
-async function registrarUsuario(username, password) {
-    const userExists = await verificarUsuario(username);
-
-    if (!userExists) {
-        await addDoc(collection(db, "usuarios"), {
-            username: username,
-            password: password
-        });
-        alert("Usuario registrado exitosamente");
-    } else {
-        alert("El nombre de usuario ya existe. Por favor, elige otro.");
-    }
-
-    console.log("Intentando registrar usuario:", username);
-
-}
-
-// Evento para el formulario de registro
-window.onload = async () => {
-    // Cargar pedidos al iniciar
-    await loadOrders();
-
-    // Configurar evento para el formulario de registro
-    document.getElementById('registerForm').addEventListener('submit', async (e) => {
-        e.preventDefault();
-        
-        const username = document.getElementById('username').value;
-        const password = document.getElementById('password').value;
-        
-        await registrarUsuario(username, password);
-
-        // Limpiar formulario
-        document.getElementById('registerForm').reset();
-    });
-};
-
-// Hacer que las funciones sean accesibles globalmente
-window.verificarUsuario = verificarUsuario;
-window.registrarUsuario = registrarUsuario;
+//carga global
 window.actualizarPedido = actualizarPedido;
 window.eliminarPedido = eliminarPedido;
+
+document.addEventListener('DOMContentLoaded', loadOrders)
