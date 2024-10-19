@@ -43,8 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (isValid) {
             // Redirigir a la página de pedidos
-            //window.location.href = "pedidos.html";
-            window.location.href = "index.html";
+            window.location.href = "pedidos.html";
         } else {
             alert("Nombre de usuario o contraseña incorrectos");
         }

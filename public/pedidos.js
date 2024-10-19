@@ -122,8 +122,11 @@ async function obtenerPedidos() {
     }));
 }
 
+//funcion redirigir a inventario
+let redInventario = () => {window.location.href = "inventario.html"}
+
 //carga global
 window.actualizarPedido = actualizarPedido;
 window.eliminarPedido = eliminarPedido;
-
+window.redInventario = redInventario;
 document.addEventListener('DOMContentLoaded', loadOrders)

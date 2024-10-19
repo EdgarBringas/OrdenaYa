@@ -104,6 +104,11 @@ window.onload = async () => {
     await loadInventario();
 };
 
+//funcion redirige a pedidos
+let redPedidos = () => {window.location.href = "pedidos.html"}
 
+
+//funciones acceso global
 window.actualizarProducto = actualizarProducto;
 window.eliminarProducto = eliminarProducto;
+window.redPedidos = redPedidos;
