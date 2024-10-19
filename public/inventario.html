@@ -4,24 +4,32 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inventario de Productos</title>
-    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 </head>
-<body>
+<body class="container">
+    <div class="text-center m-5">
+        <h1>Inventario de Productos</h1>
+    </div>
+    <div class="row p-4">
+        <form id="addProductForm" class="form-control p-4 d-flex flex-column align-items-center border ">
+            <div class="row justify-content-center w-50">
+                <input class="col-5 m-1" type="text" id="productId" placeholder="Id del Producto" required>
+                <input class="col-5 m-1" type="text" id="productName" placeholder="Nombre del Producto" required>
+            </div>
+            <div class="row justify-content-center w-50">
+                <input class="col-5 m-1" type="number" id="productQuantity" placeholder="Cantidad" required>
+                <input class="col-5 m-1" type="number" id="productPrice" placeholder="Precio" required>
+            </div>
+            <div class="row justify-content-center w-50">
+                <input class="col-5 m-1" type="date" id="entryDate" placeholder="Fecha de ingreso" required>
+                <input class="col-5 m-1" type="date" id="expirationDate" placeholder="Fecha de expiración" required>
+            </div>
+            <button class="text-center m-3 btn btn-dark" type="submit">Agregar Producto</button>
+        </form>
+    </div>
 
-    <h1>Inventario de Productos</h1>
-
-    <form id="addProductForm">
-        <input type="text" id="productId" placeholder="Id del Producto" required>
-        <input type="text" id="productName" placeholder="Nombre del Producto" required>
-        <input type="number" id="productQuantity" placeholder="Cantidad" required>
-        <input type="number" id="productPrice" placeholder="Precio" required>
-        <input type="date" id="entryDate" placeholder="Fecha de ingreso" required>
-        <input type="date" id="expirationDate" placeholder="Fecha de expiración" required>
-        <button type="submit">Agregar Producto</button>
-    </form>
-
-    <table>
-        <thead>
+    <table class=" table table-striped align-items-center text-center">
+        <thead class="table-dark">
             <tr>
                 <th>ID</th>
                 <th>Nombre</th>

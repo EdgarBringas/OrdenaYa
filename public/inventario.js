@@ -17,9 +17,9 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
 // Función para agregar un producto
-async function agregarProducto(id, nombre, cantidad, precio, f_in, f_ex) {
+async function agregarProducto(idPro, nombre, cantidad, precio, f_in, f_ex) {
     await addDoc(collection(db, "inventario"), {
-        id,
+        idPro,
         nombre,
         cantidad,
         precio,
@@ -45,7 +45,7 @@ async function loadInventario() {
     inventarioList.forEach((producto) => {
         const row = document.createElement("tr");
         row.innerHTML = `
-            <td>${producto.id}</td>
+            <td>${producto.idPro}</td>
             <td>${producto.nombre}</td>
             <td>${producto.cantidad}</td>
             <td>${producto.precio}</td>
@@ -87,13 +87,13 @@ async function eliminarProducto(id) {
 // Evento para el formulario de agregar productos
 document.getElementById('addProductForm').addEventListener('submit', async (e) => {
     e.preventDefault();
-    const id = document.getElementById('productId').value;
+    const idPro = document.getElementById('productId').value;
     const nombre = document.getElementById('productName').value;
     const cantidad = parseInt(document.getElementById('productQuantity').value);
     const precio = parseFloat(document.getElementById('productPrice').value);
     const f_in = document.getElementById('entryDate').value;
     const f_ex = document.getElementById('expirationDate').value;
-    await agregarProducto(id, nombre, cantidad, precio, f_in, f_ex);
+    await agregarProducto(idPro, nombre, cantidad, precio, f_in, f_ex);
 
     // Limpiar formulario
     document.getElementById('addProductForm').reset();
