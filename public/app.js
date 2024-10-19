@@ -1,6 +1,6 @@
-// Importar los módulos necesarios de Firebase
+// Importar los módulos de Firebase
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-app.js";
-import { getFirestore, collection, addDoc, getDocs, updateDoc, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-firestore.js";
+import { getFirestore, collection, addDoc, getDocs, updateDoc, deleteDoc, doc, query, where } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-firestore.js";
 
 // Configuración de Firebase
 const firebaseConfig = {
@@ -16,7 +16,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-// Función para agregar un pedido
+// Función para agregar un pedido 
 async function agregarPedido(pedido, cantidad, comentario, mesa, estado, precio) {
     await addDoc(collection(db, "pedidos"), {
         pedido,
@@ -30,7 +30,7 @@ async function agregarPedido(pedido, cantidad, comentario, mesa, estado, precio)
     console.log("Pedido agregado");
 }
 
-// Función para cargar los pedidos
+// Función para cargar los pedidos 
 async function loadOrders() {
     const pedidosCol = collection(db, "pedidos");
     const pedidosSnapshot = await getDocs(pedidosCol);
@@ -63,7 +63,7 @@ async function loadOrders() {
     calcularSumaTotal();
 }
 
-// Evento para el formulario
+// Evento para el formulario de pedidos
 document.getElementById('orderForm').addEventListener('submit', async (e) => {
     e.preventDefault();
 
@@ -105,14 +105,14 @@ async function eliminarPedido(id) {
     loadOrders(); // Recargar la lista de pedidos después de eliminar
 }
 
-// Función para calcular la suma total de dinero ganado
+// Función para calcular la suma total de dinero ganado 
 async function calcularSumaTotal() {
     const pedidosList = await obtenerPedidos(); // Obtener la lista de pedidos
     const total = pedidosList.reduce((acc, pedido) => acc + pedido.precio, 0); // Sumar los precios
     document.getElementById("totalGanado").textContent = `Total Ganado: $${total.toFixed(2)}`; // Mostrar el total
 }
 
-// Función para obtener todos los pedidos
+// Función para obtener todos los pedidos 
 async function obtenerPedidos() {
     const pedidosCol = collection(db, "pedidos");
     const pedidosSnapshot = await getDocs(pedidosCol);
@@ -122,11 +122,55 @@ async function obtenerPedidos() {
     }));
 }
 
-// Función para cargar los pedidos cuando se carga la página
+// Funciones para registro
+async function verificarUsuario(username) {
+    console.log("Verificando usuario:", username);
+    const usersRef = collection(db, "usuarios");
+    const q = query(usersRef, where("username", "==", username));
+    const querySnapshot = await getDocs(q);
+    return querySnapshot.empty; // Si está vacío, el usuario no existe
+   
+
+}
+
+async function registrarUsuario(username, password) {
+    const userExists = await verificarUsuario(username);
+
+    if (!userExists) {
+        await addDoc(collection(db, "usuarios"), {
+            username: username,
+            password: password
+        });
+        alert("Usuario registrado exitosamente");
+    } else {
+        alert("El nombre de usuario ya existe. Por favor, elige otro.");
+    }
+
+    console.log("Intentando registrar usuario:", username);
+
+}
+
+// Evento para el formulario de registro
 window.onload = async () => {
+    // Cargar pedidos al iniciar
     await loadOrders();
+
+    // Configurar evento para el formulario de registro
+    document.getElementById('registerForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const username = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
+        
+        await registrarUsuario(username, password);
+
+        // Limpiar formulario
+        document.getElementById('registerForm').reset();
+    });
 };
 
 // Hacer que las funciones sean accesibles globalmente
+window.verificarUsuario = verificarUsuario;
+window.registrarUsuario = registrarUsuario;
 window.actualizarPedido = actualizarPedido;
 window.eliminarPedido = eliminarPedido;
