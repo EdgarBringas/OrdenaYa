@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Pedidos</title>
+    <script type="module" src="app.js"></script>
+    <link rel="stylesheet" href="styles.css"> <!-- Opcional: si tienes estilos CSS -->
+</head>
+<body>
+
+    <h1>Gestión de Pedidos</h1>
+
+    <form id="orderForm">
+        <input type="text" id="pedido" placeholder="Nombre del Plato" required>
+        <input type="number" id="cantidad" placeholder="Cantidad" required>
+        <input type="text" id="comentario" placeholder="Comentario">
+        <input type="text" id="mesa" placeholder="Mesa" required>
+        <select id="estado" required>
+            <option value="en espera">En Espera</option>
+            <option value="servido">Servido</option>
+        </select>
+        <input type="number" id="precio" placeholder="Precio" step="0.01" required>
+        <button type="submit">Agregar Pedido</button>
+    </form>
+
+    <h2>Pedidos</h2>
+    <table id="ordersTable">
+        <thead>
+            <tr>
+                <th>Pedido</th>
+                <th>Cantidad</th>
+                <th>Comentario</th>
+                <th>Mesa</th>
+                <th>Estado</th>
+                <th>Precio</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody id="ordersBody"></tbody>
+    </table>
+
+    <div id="totalGanado">Total Ganado: $0.00</div>
+
+    <h2>Platos Más Pedidos</h2>
+    <ul id="platosMasPedidos"></ul>
+
+</body>
+</html>
