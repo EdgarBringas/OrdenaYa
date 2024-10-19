@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventario de Productos</title>
+    
+</head>
+<body>
+
+    <h1>Inventario de Productos</h1>
+
+    <form id="addProductForm">
+        <input type="text" id="productId" placeholder="Id del Producto" required>
+        <input type="text" id="productName" placeholder="Nombre del Producto" required>
+        <input type="number" id="productQuantity" placeholder="Cantidad" required>
+        <input type="number" id="productPrice" placeholder="Precio" required>
+        <input type="date" id="entryDate" placeholder="Fecha de ingreso" required>
+        <input type="date" id="expirationDate" placeholder="Fecha de expiración" required>
+        <button type="submit">Agregar Producto</button>
+    </form>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Cantidad</th>
+                <th>Precio</th>
+                <th>Fecha de ingreso</th>
+                <th>Fecha de expiración</th>
+                <th>Acciones</th>
+
+            </tr>
+        </thead>
+        <tbody id="inventoryBody">
+            <!-- Los productos se agregarán aquí -->
+        </tbody>
+    </table>
+
+    <script type="module" src="inventario.js"></script>
+</body>
+</html>
